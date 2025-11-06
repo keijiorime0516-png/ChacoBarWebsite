@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    <!--This is the Head Section-->
+    <head>
+        <title>Chaco Bar</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="image/BrowserLogo_ChacoBar.png">
+        <link rel="stylesheet" href="./style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    </head>
+
+    <!-- This is the Body Section-->
+    <body>
+        <!-- This is the Nav Section -->
+        <nav>
+            <div id="nav_left" class="nav_item">
+            </div>
+            <div id="nav_center" class="nav_item">
+                <a href="homepage.html"><img id="logo" src="image/logo_cream.png"></a>
+            </div>
+            <div id="nav_right" class="nav_item">
+                <a href="reservation.html" class="active">Reservation</a> 
+                <a href="menu.html">Menu</a> 
+                <a href="aboutus.html">About US</a>
+            </div>
+            
+        </nav>
+        <main id="mainReservation">
+
+            <div id="reservationInputScreen">
+                <div id="leftReservationSection">
+                    <div id="inputSectionContainer">
+                        <h3 class="reservationHeader">Find a Table</h3>
+                        <form id="reservationForm">
+                            <select id="people" name="guestNum">
+                                <option>1 person</option>
+                                <option selected>2 people</option>
+                                <option>3 people</option>
+                                <option>4 people</option>
+                                <option>5 people</option>
+                                <option>6 people</option>
+                                <option>7 people</option>
+                                <option>8 people</option>
+                                <option>9 people</option>
+                                <option>+10 people</option>
+                            </select>
+                        
+
+                            <input type="date" id="date" name="date">
+
+                            <select id="time" name="time">
+                                <option selected>17:00</option>
+                                <option>17:15</option>
+                                <option>17:30</option>
+                                <option>17:45</option>
+                                <option>18:00</option>
+                                <option>18:15</option>
+                                <option>18:30</option>
+                                <option>18:45</option>
+                                <option>19:00</option>
+                                <option>19:15</option>
+                                <option>19:30</option>
+                                <option>19:45</option>
+                                <option>20:00</option>
+                                <option>20:15</option>
+                                <option>20:30</option>
+                                <option>20:45</option>
+                                <option>21:00</option>
+                                <option>21:15</option>
+                                <option>21:30</option>
+                                <option>21:45</option>
+                                <option>22:00</option>
+                                <option>22:15</option>
+                                <option>22:30</option>                             
+                            </select>       
+                            <button type="submit" id="btnGetTable">GET A TABLE</button>
+                        </form>
+
+                    </div>
+                </div>
+                <div id="rightReservationSectionScreen">
+                    
+                </div>
+            </div>
+            <div id="reservationContactDetailScreen">
+                <div class="reservationContainer">
+                    <form id="reservationContactForm">
+                        <h3>Contact Info</h3>
+                        <input type="email" id="email" name="email" placeholder="Email">
+                        <div id="phoneNumInput">
+                            <select id="countryCode" name="countryCode">
+                                <option value="+1">🇺🇸 +1</option>
+                                <option value="+44">🇬🇧 +44</option>
+                                <option value="+61" selected>🇦🇺 +61</option>
+                                <option value="+81">🇯🇵 +81</option>
+                            </select>
+                            <p>|</p>
+                            <input type="tel" id="tel" name="tel" placeholder="Mobile number">
+                        </div>
+                        
+                        <h3>Add Guests</h3>
+                        <div id="guestEmailContainer">
+                            <input type="email" id="guestEmail" name="guestEmail" placeholder="Guest Email">
+                            <button id="btnAddEmail">+ Add</button>
+                        </div>
+
+                        <div id="displayGuestEmail">
+                            
+                        </div>
+
+                        <h3>Add Comment</h3>
+                        <textarea id="comment" name="comment" placeholder="Add comments here... (eg. allergy, birthday, anniversary)"></textarea>
+                        <div class="btnSubmitContainer">
+                            <button class="btnReturn btnReservation">Back</button>
+                            <button type="submit" id="btnMakeReservation" class="btnReservation">Make Reservation</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id="reservationConfirmationScreen">
+                <div class="reservationContainer">
+                    <div id="reservationConfirmationContainer">
+                        <h3>Reservation Confirmed!</h3>
+                        <h4>Reservation Number: #ASDR182123</h4>
+
+                        <h3>Overview</h3>
+                        <h4>Number of Guests: </h4>
+                        <h4>Date & Time: </h4>
+                        <h4>Additional Info: </h4>
+                        <button class="btnReturn btnReservation">Edit</button>
+                        <div class="btnSubmitContainer">
+                            <h3>See you soon! 🎉</h3>
+                            <a href="homepage.html"><button class="btnReservation">Back to Home</button></a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <script src="script.js"></script>
+    </body>
+</html>
