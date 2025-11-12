@@ -161,6 +161,27 @@ h2 {
   z-index: -1; /* keeps it behind text but above background */
 }
 
+.headerDesign_orange {
+  position: relative;
+  display: inline-block;
+  margin: 20px 0px;
+  z-index: 1;
+  text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.4);
+   /* or your page background color */
+}
+
+/* visible orange underline + subtle shadow */
+.headerDesign_orange::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 1.5px; /* controls how close the bar is to text */
+  width: 100%;
+  height: 8px;
+  background-color: #FF7000;
+  z-index: -1; /* keeps it behind text but above background */
+}
+
 #menuBoardHeader {
     text-decoration: none;
 }
@@ -342,15 +363,13 @@ h5 {
 
 .aboutUsLeftContainer {
     width: 45%;
-    height: 500px;
-    overflow: hidden;
+    overflow:auto;
 }
 
 
 .aboutUsRightContainer {
     width: 55%;
-    height: 500px;
-    overflow: hidden;
+    overflow:auto;    
 }
 
 
@@ -372,12 +391,14 @@ h5 {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0px 0px 30px;
 }
 
 .leftTextContainer {
     display: flex;
     justify-content: center;
     align-items: center;   
+    padding: 30px 0px 30px;
 }
 .aboutUsTextContainer {
     width: 80%;
@@ -525,6 +546,83 @@ h5 {
     z-index: 2;
 }
 
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(25, 25, 25, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+.overlayContent {
+    background-color: black;
+    width: 70%;
+    height: 500px;
+    display: flex;
+    flex-direction: row;
+
+}
+#homepageOverlay > .overlayContent {
+    background-color: #FFEFE2;
+}
+#homepageOverlay h3 {
+    color: #3F3F3F;
+    
+}
+#homepageOverlay h4 {
+    font-weight: 400;
+    color: #3F3F3F;
+    text-transform: capitalize;
+
+}
+#subheaderAnnouncement {
+    text-transform: uppercase;
+    font-size: 18px;
+}
+.overlayText {
+    position: relative;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 25px 25px 40px 40px;
+}
+.overlayText h4:first-of-type {
+    font-weight: bold;
+}
+
+
+
+.overlayImg {
+    width: 50%;
+    object-fit:cover;
+}
+.closeOverlay {
+    font-size: 48px;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    cursor: pointer;
+
+}
+#closeOverlayMenu {
+    color: #FFEFE2;
+}
+#closeOverlayHomepage {
+    color: #3F3F3F;
+}
+.overlayContent h3,
+.overlayContent h4 {
+    text-transform: uppercase;
+}
+
+
 
 
 .smallHeader {
@@ -563,20 +661,351 @@ h5 {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;               
-    justify-content: flex-start; 
-    
+    justify-content: space-around; 
+    align-items: center;
 }
 
 
 
 #leftReservationSection{
-    width: 50%;
-    border: 2px solid yellow;
+    width: 700px;
+    height: 500px;
     display: flex;
     justify-content: center;
     align-items: center;
 
 }
+#rightReservationSectionScreen {
+    width: 500px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#seatingLabel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+}
+#seatingLayoutContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+
+.seatingLabelContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px
+}
+.dots {
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    background-color: #3F3F3F;
+    
+}
+#outdoorDot {
+    background-color: red;
+}
+#dinningDot {
+    background-color: blue;
+}
+#barDot {
+    background-color: green;
+}
+#counterDot {
+    background-color: yellow;
+}
+#seatingLayout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    gap: 15px;
+    margin-top: 10px;
+}
+#seatingOutdoor {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+#seatingWall {
+    width: 100%;
+    height: 3px;
+    background-color: #3F3F3F;
+    border-radius: 5px;
+    position: relative;
+
+}
+#seatingWall::before {
+    content: "";
+    position: absolute;
+    width: 60px;
+    height: 8px;
+    background-color: #3F3F3F;
+    left: 39%;
+    top: -2.5px;
+    border-radius: 2px;
+
+}
+#insideSeat {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#insideSeatLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+#dinningSeatRight {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+#dinningSeatLeftVertical{
+    height: 120px;
+}
+#dinningSeatRightVertical{
+    height: 180px;
+
+}
+
+.dinningSeatVertical {
+    display: flex;
+    flex-direction: row;
+    
+    gap: 5px;
+}
+.dinningSeatColumn1 {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-around;
+    gap: 5px;
+    
+}
+.dinningSeatColumn2 {
+    width: 40px;
+    height: 100%;
+    background-color: #3F3F3F;
+}
+.dinningSeatColumn3 {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-around;
+    gap: 5px;   
+}
+#dinningSeatLeftHorizantal {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+}
+#barTable {
+    width: 80px;
+    height: 30px;
+    background-color: #3F3F3F;
+}
+#barSeat {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 10px;
+}
+#grill {
+    width: 100%;
+    height: 20px;
+    background-color: transparent;
+    border: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+.seatingLayoutText {
+    font-size: 12px;
+    text-transform: uppercase;
+}
+#counterSeat {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+#counterSeatleft{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+#counterSeatRow {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding-left: 10px;
+}
+#counterTableRectangle {
+    height: 40px;
+    width: 150px;
+    background-color: #3F3F3F;
+}
+#counterSeatCircle {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    transform: translate(-10px,0px);
+}
+#seat35 {
+    position: relative;
+    transform: rotate(-40deg) translate(-15px,12px);
+    
+}
+#seat36 {
+    position: relative;
+    transform: rotate(-10deg) translate(-2px,2px);
+}
+#seat37 {
+    position: relative;
+    transform: rotate(10deg) translate(2px,2px);
+}
+
+#seat38 {
+    position: relative;
+    transform: rotate(40deg) translate(15px,12px);
+    
+}
+
+#counterTableCircle {
+    position: relative;
+    width: 120px;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+    background-color: #3F3F3F;
+    transform: translate(-10px,5px);
+}
+
+
+.tableGroup{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    height: 100%;
+}
+.seat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5px;
+
+
+}
+
+.seatHead {
+    width: 15px;
+    height: 3px;
+    background-color: #3F3F3F;
+    border: none;
+    border-radius: 2px;
+    
+}
+
+.seatBase {
+    width: 22.5px;
+    height: 15px;
+    background-color: #3F3F3F;
+    border: none;
+    border-radius: 3px;
+
+}
+
+.outdoorSeat .seatHead,
+.outdoorSeat .seatBase {
+    background-color: rgb(255, 118, 118);
+}
+
+.dinningSeat .seatHead,
+.dinningSeat .seatBase {
+    background-color: rgb(115, 166, 255);
+}
+
+.barSeat .seatHead,
+.barSeat .seatBase {
+    background-color: rgb(163, 219, 167);
+}
+
+.counterSeat .seatHead,
+.counterSeat .seatBase {
+    background-color: rgb(255, 255, 188);
+}
+
+.seat.unavailable .seatHead,
+.seat.unavailable .seatBase {
+    background-color: #3F3F3F;
+}
+.seat.outdoorSeat.selected .seatHead,
+.seat.outdoorSeat.selected .seatBase {
+    background-color: red;
+}
+.seat.dinningSeat.selected .seatHead,
+.seat.dinningSeat.selected .seatBase {
+    background-color: blue;
+}
+.seat.barSeat.selected .seatHead,
+.seat.barSeat.selected .seatBase {
+    background-color: green;
+}
+.seat.counterSeat.selected .seatHead,
+.seat.counterSeat.selected .seatBase {
+    background-color: yellow;
+}
+
+
+
+
+
+
+
+.seatBottom {
+    transform: rotate(180deg);
+}
+
+.seatLeft{
+    transform: rotate(-90deg);
+}
+.seatRight{
+    transform: rotate(90deg);
+}
+.outdoorTable {
+    width: 30px;
+    height: 30px;
+    background-color: #3F3F3F;
+}
+.seatingSpace {
+    width: 100px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+
+
+
+
 #inputSectionContainer {
     width: 100%;
     display: flex;
@@ -592,7 +1021,7 @@ h5 {
 
 #reservationForm {
     background-color: white;
-    width: 80%;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -805,11 +1234,14 @@ h5 {
     margin: 0;
 }
 .removeEmail {
+    font-size: 21px;
     background-color: transparent;
     border: none;
+
 }
 .reservationText {
     color:#626262;
+    font-weight: 500;
 }
 
 /*FOOTER CSS*/
