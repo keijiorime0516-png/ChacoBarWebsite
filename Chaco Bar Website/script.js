@@ -1,7 +1,10 @@
 /* Setting Date Input to Current Date */
 document.addEventListener("DOMContentLoaded", () => {
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById("date").value = today;
+    const currentPath = window.location.pathname;
+    if (currentPath.includes("reservation.html")) {
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById("date").value = today;
+    }
 });
 
 /* Logo animation */
@@ -25,6 +28,11 @@ logo.addEventListener("mouseout", () => {
 });
 
 const announcementContainers = document.querySelectorAll(".announcement_container");
+const overlay = document.querySelector(".overlay");
+const overlayImg = document.querySelector(".overlayImg");
+const overlayHeader = document.getElementById("overlayHeader");
+const overlaySubheader = document.getElementById("subheaderAnnouncement");
+
 
 announcementContainers.forEach(container => {
     container.addEventListener("mouseover", () => {
@@ -50,6 +58,22 @@ announcementContainers.forEach(container => {
             }
         });
     
+    });
+    container.addEventListener("click", (e) => {
+        e.preventDefault();
+        const announcementImg = container.querySelector(".announcement_img");
+        const announcementHeader = container.querySelector("h3");
+        const announcementSubheader = container.querySelector("h4");
+
+        overlayImg.src = announcementImg.src;
+        overlayHeader.textContent = announcementHeader.innerText
+        overlaySubheader.textContent = announcementSubheader.innerText;  
+
+
+
+        overlay.style.display = "flex";
+        document.body.style.overflow = "hidden";
+
     });
 });
 
@@ -89,6 +113,19 @@ nav_items.forEach(element => {
 });
 
 const menuItems = document.querySelectorAll(".foodItem");
+// const overlay = document.querySelector(".overlay");
+const closeOverlay = document.querySelector(".closeOverlay");
+const overlayfoodName = document.querySelector(".headerDesign_orange");
+
+
+if (overlay) {
+    overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) {
+            overlay.style.display = 'none';
+            document.body.style.overflow = "";
+        }
+    });
+};
 
 menuItems.forEach(item => {
     let background = item.querySelector(".foodItemBackground");
@@ -102,7 +139,27 @@ menuItems.forEach(item => {
         background.style.opacity = "0%";
         name.style.opacity = "0%";
     });
+    item.addEventListener("click", () => {
+        const foodItemName = item.querySelector(".foodName");
+        const foodImg = item.querySelector(".img_food");
+        console.log(foodItemName.value);
+
+        overlayfoodName.innerText = foodItemName.textContent;
+        overlayImg.src = foodImg.src;
+        overlay.style.display = "flex";
+        document.body.style.overflow = "hidden";
+
+    });
+
 });
+
+if (closeOverlay) {
+    closeOverlay.addEventListener("click", () => {
+        overlay.style.display = "none";
+        document.body.style.overflow = "";
+    });
+}
+
 
 
 
@@ -184,19 +241,152 @@ const btnGetTable = document.getElementById("btnGetTable");
 const btnMakeReservation = document.getElementById("btnMakeReservation");
 const btnAddEmail = document.getElementById("btnAddEmail");
 const displayGuestContainer= document.getElementById("displayGuestEmail");
-
-
 const reservationInput = new Object();
+
+
+const guestNumInput = document.getElementById("people");
+const dateInput = document.getElementById("date");
+const timeInput = document.getElementById("time"); 
+
+//Seating Option
+let reservationData = new Array;
+const seatings = document.querySelectorAll(".seat");
+
+function generateSeatingAvailability(){
+    let available = new Array;
+    for (let i = 0; i < 38; i+=2) {
+        const randomNum = Math.round(Math.random());
+        available.push(randomNum);
+        available.push(randomNum);
+    }
+    return available
+}
+
+function setSeating(seatingList) {
+    seatingList.forEach((seatValue, index) => {
+        const seat = document.getElementById(`seat${index +1}`);
+
+        if (seatValue === 1) {
+            seat.classList.add('unavailable');
+        } else {
+            seat.classList.remove('unavailable');
+        }
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const currentPath = window.location.pathname;
+    if (currentPath.includes("reservation.html")) {
+
+        const seatingAvailability = {
+            date: dateInput.value,
+            time: timeInput.value,
+            seating: generateSeatingAvailability()
+        };
+
+        reservationData.push(seatingAvailability);
+        setSeating(seatingAvailability.seating);
+        console.log(reservationData);
+    }
+});
+
+
+[dateInput, timeInput].forEach(input => {
+    input.addEventListener("input", updateSeating);
+});
+
+function updateSeating(){
+    const exists = reservationData.find(reservation => reservation.date === dateInput.value && reservation.time === timeInput.value);
+    const currentSelected = document.querySelectorAll(".seat.selected");
+        currentSelected.forEach(element => {
+            element.classList.remove('selected');
+        });
+
+    if (exists) {
+        setSeating(exists.seating);
+    } else {
+        const seatingAvailability = {
+            date: dateInput.value,
+            time: timeInput.value,
+            seating: generateSeatingAvailability()
+        };
+
+        reservationData.push(seatingAvailability);
+        setSeating(seatingAvailability.seating);
+    }
+    console.log(reservationData);
+}
+
+seatings.forEach(seat => {
+    const seatId = seat.id;
+    const seatNum = parseInt(seatId.replace('seat',''));
+    
+    const pairStartNum = seatNum % 2 === 0 ? seatNum - 1: seatNum;
+    const pairSeat1 = document.getElementById(`seat${pairStartNum}`);
+    const pairSeat2 = document.getElementById(`seat${pairStartNum+1}`);
+
+
+
+    seat.addEventListener("mouseenter", () => {
+        if (!seat.classList.contains('unavailable')) {
+            [pairSeat1, pairSeat2].forEach(pairSeat => {
+                const children = pairSeat.children;
+                if (pairSeat.classList.contains('outdoorSeat')) {
+                    children[0].style.border = '1px solid red';
+                    children[1].style.border = '2px solid red';
+
+                } else if (pairSeat.classList.contains('dinningSeat')) {
+                    children[0].style.border = '1px solid blue';
+                    children[1].style.border = '2px solid blue';
+                }
+                else if (pairSeat.classList.contains('barSeat')) {
+                    children[0].style.border = '1px solid green';
+                    children[1].style.border = '2px solid green';
+                } else {    
+                    children[0].style.border = '1px solid yellow';
+                    children[1].style.border = '2px solid yellow';
+
+                }
+            });
+                
+        }
+    });
+    seat.addEventListener("mouseleave", () => {
+        [pairSeat1, pairSeat2].forEach(pairSeat => {
+            const children = pairSeat.children;
+                children[0].style.border = '';
+                children[1].style.border = '';
+        });
+    });
+    seat.addEventListener("click", () => {
+        if (!seat.classList.contains('unavailable') && !seat.classList.contains('selected')) {
+            const currentSelected = document.querySelectorAll(".seat.selected");
+            currentSelected.forEach(element => {
+                element.classList.remove('selected');
+            });
+            [pairSeat1, pairSeat2].forEach(pairSeat => {
+                pairSeat.classList.add('selected');
+
+            });
+                
+        } else {
+            [pairSeat1, pairSeat2].forEach(pairSeat => {
+                pairSeat.classList.remove('selected');
+            });
+        }
+
+    });
+
+});
+
+
+
 
 btnGetTable.addEventListener("click", (e) => {
     e.preventDefault();
-    const guestNumInput = document.getElementById("people").value;
-    const dateInput = document.getElementById("date").value;
-    const timeInput = document.getElementById("time").value; 
-
-    reservationInput.guestNum = guestNumInput;
-    reservationInput.date = dateInput;
-    reservationInput.time = timeInput;
+    reservationInput.guestNum = guestNumInput.value;
+    reservationInput.date = dateInput.value;
+    reservationInput.time = timeInput.value;
     // ADD for seating option
     console.log(reservationInput);
     inputScreen.style.display = "none";
@@ -214,7 +404,7 @@ function createGuestEmail(email) {
     newdiv.className = 'guestEmailContainer';
 
     newdiv.innerHTML = `<h5 class="guestEmailh5">${email}</h5>
-                     <button class="removeEmail">✖</button>`;
+                     <button class="removeEmail">&times;</button>`;
 
     displayGuestContainer.append(newdiv);
 
@@ -287,9 +477,9 @@ btnMakeReservation.addEventListener("click", (e) => {
         console.log(reservationInput);
         contactScreen.style.display = "none";
         confirmationScreen.style.display = "flex";
-        guestNumText.textContent = `Number of Guests: ${reservationInput.guestNum}`;
-        dateTimeText.textContent = `Date & Time: ${reservationInput.date} ${reservationInput.time}`;
-        commentText.textContent = `Additional Info: ${reservationInput.comments}`;
+        guestNumText.innerHTML = `<span class="reservationText">Number of Guests: </span>${reservationInput.guestNum}`;
+        dateTimeText.innerHTML = `<span class="reservationText">Date & Time: </span>${reservationInput.date} @${reservationInput.time}`;
+        commentText.innerHTML = `<span class="reservationText">Additional Info: </span>${reservationInput.comments}`;
 
     } else {
         alert('Invalid Input: Email must be a valid email & Mobile Number must be 9 digits');
